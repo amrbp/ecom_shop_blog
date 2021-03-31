@@ -1,0 +1,13 @@
+.hero {
+    height: 200px;
+    color: #ffffff;
+    background-image: url("images/luca.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.center {
+    line-height: 200px;
+    height: 200px;
+    text-align: center;
+  }

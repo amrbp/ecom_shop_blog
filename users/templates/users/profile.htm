@@ -1,0 +1,18 @@
+{% extends 'base.htm' %} {% load crispy_forms_tags %} {% load static %} {% block content %}
+<link href="{% static 'css/profile.css'%}" rel="stylesheet" />
+<div class="pt-5 mb-5">
+  <center>
+    <img
+      src="{{user.profile.image.url}}"
+      class="rounded-circle account-img"
+      style="height: 100px; width: 100px"
+    />
+    <div class="media-body">
+      <div class="account-heading">{{user.username}}</div>
+      <p class="text-secondary">{{user.email}}</p>
+    </div>
+  </center>
+</div>
+
+
+{% endblock content %}

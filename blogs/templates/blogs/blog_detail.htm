@@ -1,0 +1,106 @@
+{% extends 'base.htm' %} {% load static %} {% load crispy_forms_tags %} {% block title %} Blogs {% endblock title %} {% block content %}
+<link rel="stylesheet" href="{% static 'blog_main.css' %}" />
+<div class="hero">
+  <div class="h1 center">Blogs</div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-9">
+            <div class="mt-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="home">Home</a></li>
+                  <li class="breadcrumb-item"><a href="{% url 'blogs:main-post-view' %}">Blog</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{% for obj in qs %} {{obj.title}} {% endfor %}</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="mt-2">
+                {% for obj in qs %}
+                <div class=" p-4 mb-3">
+                    <div class="p-4 mb-3">
+                        <div class="row">
+                          <div class="row w-100">
+                            {% if obj.picture %}
+                            <div class="col-12">
+                              <img src="{{obj.picture.url}}" class="imageContent" />
+                            </div>
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="mt-2">
+                                <p class="font-weight-normal">
+                                  By {{ obj.author.user }} | {{obj.created|timesince}} | {{obj.category}} |
+                                  {{obj.num_comments}} comments
+                                </p>
+                              </div>
+                            
+                          </div>
+                        <div class="row mt-4 mb-3">
+                          <div class="h4 font-weight-bold">{{obj.title}}</div>
+                        </div>
+                        <div class="row mb-2">
+                          <div
+                            class="h6 font-weight-light text-justify  d-inline-block"
+                            style="max-width: 1000px"
+                          >
+                            {{obj.body}}
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <div class="mt-4">
+                          <div class="h5">LEAVE A COMMENT</div>
+                          <div class="h6 mt-3">{{obj.num_comments}} comments</div>
+                      </div>
+                  <div class="pt-3">
+                    <div>
+                      {% if obj.comment_set.all %} {% for c in obj.comment_set.all %}
+                      <div class="card pt-2 pl-3 pb-2">
+                        <span
+                          ><img class="avatar" src="{{c.user.avatar.url}}" /> 
+                          {{ c.user.user }} - {{c.created|timesince}} : {{ c.comment }}</span
+                        >
+                      </div>
+                      {% endfor %} {% endif %}
+                    </div>
+                    <form action="" method="POST">
+                      {% csrf_token %}
+                      <input type="hidden" name="post_id" value="{{obj.id}}" />
+                      {{c_form|crispy}}
+                      <button class="btn btn-primary float-left" name="submit_c_form">
+                        Send
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="mt-5">
+            {% for obj in qs %}
+            {% if 'admin' == user.username %}
+            <a
+              class="btn btn-secondary btn-sm mt-1 mb-1"
+              href="{% url 'blogs:post-update' obj.id %}"
+              >Update</a
+            >
+            <a
+              class="btn btn-danger btn-sm mt-1 mb-1"
+              href="{% url 'blogs:post-delete' obj.id %}"
+              >Delete</a
+            >
+            {% else %}
+            
+            {% endif %}
+            {% endfor %}
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+

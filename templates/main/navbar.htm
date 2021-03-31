@@ -1,0 +1,74 @@
+{% load static %}
+{% url 'home' as path_to_home %}
+{% url 'products:product_list' as path_to_shop %}
+{% url 'blogs:main-post-view' as path_to_blogs %}
+{% url 'about' as path_to_about %}
+{% url 'contact' as path_to_contact %}
+
+<link rel="stylesheet" href="{% static 'navbar.css' %}" />
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <div class="navbar-brand h1 m-3">
+      <a href="{% url 'home' %}">
+      <span class="font-weight-bold">COZA</span>
+      <span class="font-weight-light">STORE</span>
+      </a>
+    </div>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse pl-3" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto ml-5">
+        {% if user.is_authenticated %}
+        <li class="nav-item pr-3">
+          <a class="nav-link font-weight-normal {% if request.path == path_to_home %}active{% endif %}" href="{{path_to_home}}">Home </a>
+        </li>
+        <li class="nav-item pr-3">
+          <a class="nav-link font-weight-normal {% if request.path == path_to_shop %}active{% endif %}" href="{{path_to_shop}}">Shop </a>
+        </li>
+        <li class="nav-item pr-3">
+          <a class="nav-link font-weight-normal {% if request.path == path_to_blogs %}active{% endif %}" href="{{path_to_blogs}}">Blog</a>
+        </li>
+        <li class="nav-item pr-3">
+          <a class="nav-link font-weight-normal {% if request.path == path_to_about %}active{% endif %}" href="{{path_to_about}}">About</a>
+        </li>
+        <li class="nav-item pr-3 ">
+          <a class="nav-link font-weight-normal {% if request.path == path_to_contact %}active{% endif %}" href="{{path_to_contact}}">Contact</a>
+        </li>
+        {% endif %}
+      </ul>
+      
+      <form class="form-inline navbar-nav  my-2 my-lg-0">
+        <ul class="navbar-nav mr-auto">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=""
+              >Welcome, {{user.username}}</a
+            >
+          </li>
+          <a href="{% url 'products:cart' %}">
+            <span id="cart-icon" class="material-icons-outlined pt-2 pl-3"> shopping_cart </span>
+          </a>
+          <p id="cart-total" class="pt-1">{{cartItems}}</p>
+          {% else %}
+
+          <li class="nav-item">
+            <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+          </li>
+          {% endif %}
+        </ul>
+      </form>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,53 @@
+{% extends 'base.htm' %} {% load static %} {% load crispy_forms_tags %} {% block title %} Contact {% endblock title %} {% block content %}
+<link rel="stylesheet" href="{% static 'contact.css' %}" />
+<div class="hero">
+  <div class="h1 center">Contact</div>
+</div>
+
+<div class="container pb-5">
+  <div class="border p-5 mt-5">
+    <div class="p-5">
+      <div class="pb-5">
+        <div class="row">
+          <div class="col-6">
+            <span class="material-icons">location_on</span>
+            <span class="h5 pl-1">Address</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-7 h6 text-justify font-weight-light pl-5">
+            Coza Store Center 8th floor, 379 Hudson St, New York, NY 10018 US
+          </div>
+        </div>
+      </div>
+      <div class="pb-5">
+        <div class="row">
+          <div class="col-6">
+            <span class="material-icons">phone</span>
+            <span class="h5 pl-1 pb-1">Lets Talk</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 h6 text-justify font-weight-light pl-5">
+            +1 800 1236879
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <div class="row">
+          <div class="col-6">
+            <span class="material-icons">mail_outline</span>
+            <span class="h5 pl-1 pb-1">Sale Support</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 h6 text-justify font-weight-light pl-5">
+            contact@example.com
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
